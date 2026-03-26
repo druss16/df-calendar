@@ -12,7 +12,10 @@
     --green-light: #e8f5f1;
     --green-pale: #f4fbf8;
     --gold: #C9A84C;
-    --gold-light: #fdf6e3;
+    --fb-blue: #1877F2;
+    --fb-light: #e7f0fd;
+    --li-blue: #0A66C2;
+    --li-light: #e8f3fb;
     --text: #1a1a1a;
     --text-muted: #5a5a5a;
     --text-light: #8a8a8a;
@@ -20,17 +23,9 @@
     --white: #ffffff;
     --bg: #fafaf8;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  /* HEADER */
   header {
     background: var(--green);
     padding: 3rem 2rem 2.5rem;
@@ -42,252 +37,162 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 20px,
-      rgba(255,255,255,0.03) 20px,
-      rgba(255,255,255,0.03) 21px
-    );
+    background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px);
   }
-  .header-eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-  }
-  header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 500;
-    color: #fff;
-    letter-spacing: 0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-  }
-  header p {
-    color: rgba(255,255,255,0.65);
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 0.03em;
-  }
-  .header-meta {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1.75rem;
-    flex-wrap: wrap;
-  }
-  .meta-pill {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    font-weight: 400;
-    padding: 6px 16px;
-    border-radius: 20px;
-    letter-spacing: 0.04em;
-  }
+  .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 500; color: #fff; letter-spacing: 0.02em; line-height: 1.15; margin-bottom: 0.5rem; }
+  header p { color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 300; letter-spacing: 0.03em; }
+  .header-meta { display: flex; justify-content: center; gap: 2rem; margin-top: 1.75rem; flex-wrap: wrap; }
+  .meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); font-size: 12px; padding: 6px 16px; border-radius: 20px; letter-spacing: 0.04em; }
 
   /* CONTROLS */
-  .controls {
+  .controls-wrap {
     background: var(--white);
     border-bottom: 1px solid var(--border);
-    padding: 1rem 2rem;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .controls-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-light);
-    margin-right: 4px;
+
+  /* Platform tabs */
+  .platform-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
   }
-  .filter-btn {
-    padding: 6px 16px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
+  .platform-tab {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    border: none;
     background: transparent;
-    color: var(--text-muted);
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-light);
+    border-bottom: 3px solid transparent;
     transition: all 0.18s ease;
     letter-spacing: 0.02em;
   }
+  .platform-tab:hover { color: var(--text-muted); }
+  .platform-tab.active-all { color: var(--green); border-bottom-color: var(--green); }
+  .platform-tab.active-fb { color: var(--fb-blue); border-bottom-color: var(--fb-blue); }
+  .platform-tab.active-li { color: var(--li-blue); border-bottom-color: var(--li-blue); }
+
+  .platform-icon {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .icon-all { background: var(--green); font-size: 9px; letter-spacing: -0.5px; }
+  .icon-fb  { background: var(--fb-blue); }
+  .icon-li  { background: var(--li-blue); border-radius: 3px; }
+
+  .post-count {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-left: 4px;
+  }
+
+  /* Theme filters */
+  .theme-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+  }
+  .controls-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); margin-right: 4px; }
+  .filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: all 0.18s ease; }
   .filter-btn:hover { border-color: var(--green); color: var(--green); }
   .filter-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Platform banner */
+  .platform-banner {
+    display: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 12px;
+    font-weight: 500;
+    align-items: center;
+    gap: 8px;
+  }
+  .platform-banner.show { display: flex; }
+  .banner-fb { background: var(--fb-light); color: var(--fb-blue); }
+  .banner-li { background: var(--li-light); color: var(--li-blue); }
+  .banner-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .banner-fb .banner-dot { background: var(--fb-blue); }
+  .banner-li .banner-dot { background: var(--li-blue); }
 
   /* MAIN */
   main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  /* WEEK BLOCK */
   .week-block { margin-bottom: 3rem; }
-  .week-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--green);
-  }
-  .week-num {
-    background: var(--green);
-    color: #fff;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 3px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .week-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: var(--green);
-    letter-spacing: 0.02em;
-  }
+  .week-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--green); flex-wrap: wrap; }
+  .week-num { background: var(--green); color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .week-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--green); }
   .week-days { font-size: 12px; color: var(--text-light); margin-left: auto; }
 
-  /* DAY CARD */
-  .day-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
+  .day-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 1rem; overflow: hidden; transition: box-shadow 0.2s ease, transform 0.2s ease; }
   .day-card:hover { box-shadow: 0 4px 24px rgba(27,92,78,0.08); transform: translateY(-1px); }
-  .card-top {
-    display: flex;
-    align-items: stretch;
-    border-bottom: 1px solid var(--border);
-  }
-  .day-number {
-    background: var(--green-pale);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 64px;
-    padding: 1rem 0.75rem;
-    text-align: center;
-  }
+
+  /* Platform accent on left border */
+  .day-card.card-fb-only { border-left: 3px solid var(--fb-blue); }
+  .day-card.card-li-only { border-left: 3px solid var(--li-blue); }
+  .day-card.card-both { border-left: 3px solid var(--green); }
+
+  .card-top { display: flex; align-items: stretch; border-bottom: 1px solid var(--border); }
+  .day-number { background: var(--green-pale); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 64px; padding: 1rem 0.75rem; text-align: center; }
   .day-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); font-weight: 500; }
   .day-num-val { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--green); line-height: 1; }
-  .card-meta {
-    flex: 1;
-    padding: 0.75rem 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title {
-    width: 100%;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.01em;
-    line-height: 1.3;
-  }
-  .badge {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
+
+  .card-meta { flex: 1; padding: 0.75rem 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .card-title { width: 100%; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); letter-spacing: 0.01em; line-height: 1.3; }
+
+  .badge { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; }
   .badge-pain    { background: #FCEBEB; color: #A32D2D; }
   .badge-edu     { background: #E6F1FB; color: #185FA5; }
   .badge-trust   { background: #E1F5EE; color: #0F6E56; }
   .badge-cta     { background: #FAEEDA; color: #854F0B; }
   .badge-culture { background: #EEEDFE; color: #3C3489; }
-  .badge-platform { background: #f0f0ec; color: #5a5a5a; }
+
+  .platform-badges { display: flex; gap: 5px; }
+  .plat-badge {
+    font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.04em;
+  }
+  .plat-fb { background: var(--fb-light); color: var(--fb-blue); }
+  .plat-li { background: var(--li-light); color: var(--li-blue); }
 
   .card-body { padding: 1.25rem 1.5rem; }
-  .copy-text {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-    white-space: pre-line;
-  }
-  .cta-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: var(--green-light);
-    border-radius: 7px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.75rem;
-  }
-  .cta-icon {
-    width: 20px;
-    height: 20px;
-    background: var(--green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .copy-text { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 1rem; white-space: pre-line; }
+
+  .cta-row { display: flex; align-items: flex-start; gap: 10px; background: var(--green-light); border-radius: 7px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
+  .cta-icon { width: 20px; height: 20px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .cta-icon svg { width: 10px; height: 10px; fill: white; }
   .cta-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); display: block; margin-bottom: 2px; }
   .cta-text { font-size: 13px; color: var(--green); font-weight: 500; line-height: 1.5; }
 
-  .tip-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .tip-dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 6px;
-  }
+  .tip-row { display: flex; align-items: flex-start; gap: 8px; }
+  .tip-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
   .tip-text { font-size: 12px; color: var(--text-light); font-style: italic; line-height: 1.5; }
 
-  /* EMPTY STATE */
   .empty { text-align: center; padding: 4rem 2rem; color: var(--text-light); font-size: 14px; }
 
-  /* FOOTER */
-  footer {
-    background: var(--green);
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-  }
+  footer { background: var(--green); color: rgba(255,255,255,0.6); text-align: center; padding: 1.5rem; font-size: 12px; letter-spacing: 0.04em; }
   footer strong { color: rgba(255,255,255,0.9); }
 
   @media (max-width: 600px) {
     header { padding: 2rem 1rem 1.75rem; }
-    .controls { padding: 0.75rem 1rem; }
+    .theme-filters { padding: 0.75rem 1rem; }
     main { padding: 1.5rem 1rem 3rem; }
     .day-number { min-width: 52px; }
-    .card-body { padding: 1rem 1rem; }
+    .card-body { padding: 1rem; }
+    .week-days { display: none; }
   }
 </style>
 </head>
@@ -305,14 +210,43 @@
   </div>
 </header>
 
-<div class="controls">
-  <span class="controls-label">Filter:</span>
-  <button class="filter-btn active" data-filter="all">All posts</button>
-  <button class="filter-btn" data-filter="pain">Pain point</button>
-  <button class="filter-btn" data-filter="edu">Education</button>
-  <button class="filter-btn" data-filter="trust">Trust building</button>
-  <button class="filter-btn" data-filter="cta">Direct CTA</button>
-  <button class="filter-btn" data-filter="culture">Culture</button>
+<div class="controls-wrap">
+  <div class="platform-tabs">
+    <button class="platform-tab active-all" data-platform="all" onclick="setPlatform('all', this)">
+      <div class="platform-icon icon-all">ALL</div>
+      All Platforms
+      <span class="post-count" id="count-all">30 posts</span>
+    </button>
+    <button class="platform-tab" data-platform="fb" onclick="setPlatform('fb', this)">
+      <div class="platform-icon icon-fb">f</div>
+      Facebook
+      <span class="post-count" id="count-fb"></span>
+    </button>
+    <button class="platform-tab" data-platform="li" onclick="setPlatform('li', this)">
+      <div class="platform-icon icon-li">in</div>
+      LinkedIn
+      <span class="post-count" id="count-li"></span>
+    </button>
+  </div>
+
+  <div class="platform-banner banner-fb" id="banner-fb">
+    <div class="banner-dot"></div>
+    Showing Facebook posts — includes posts marked "FB" and "FB + LI". Put booking link in first comment, never in post body.
+  </div>
+  <div class="platform-banner banner-li" id="banner-li">
+    <div class="banner-dot"></div>
+    Showing LinkedIn posts — includes posts marked "LI" and "FB + LI". Use comment-to-DM strategy. Never post external links in body.
+  </div>
+
+  <div class="theme-filters">
+    <span class="controls-label">Theme:</span>
+    <button class="filter-btn active" data-filter="all" onclick="setTheme('all', this)">All</button>
+    <button class="filter-btn" data-filter="pain" onclick="setTheme('pain', this)">Pain point</button>
+    <button class="filter-btn" data-filter="edu" onclick="setTheme('edu', this)">Education</button>
+    <button class="filter-btn" data-filter="trust" onclick="setTheme('trust', this)">Trust building</button>
+    <button class="filter-btn" data-filter="cta" onclick="setTheme('cta', this)">Direct CTA</button>
+    <button class="filter-btn" data-filter="culture" onclick="setTheme('culture', this)">Culture</button>
+  </div>
 </div>
 
 <main id="main"></main>
@@ -323,50 +257,100 @@
 
 <script>
 const posts = [
-  {day:1,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platform:"FB + LI",title:"Tax season is over. Are you relieved — or frustrated?",copy:"If you just wrote a big check to the IRS and you're not sure why, that's not just bad luck. That's a planning problem. Most business owners overpay by thousands every year — not because they did anything wrong, but because no one was looking out for them. That's exactly what we do at D&F CPAs.",cta:"Comment FRUSTRATED below if this resonates — we read every one.",tip:"Post booking link in first comment after publishing."},
-  {day:2,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platform:"FB",title:"Hot take: Your tax bill is not fixed.",copy:"Most people treat their tax return like a final score. It's not. It's a report card on last year's planning — and if the number surprised you, there's still time to change the grade for next year. We specialize in helping small & mid-market businesses and nonprofits pay what they owe — and not a dollar more.",cta:"Comment STRATEGY below and we'll reach out this week.",tip:"Respond to every comment to boost reach."},
-  {day:3,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platform:"LI",title:"If your CPA only calls you in February, you have an accountant — not a partner.",copy:"There's a massive difference between a firm that prepares your return and one that actively works to reduce your tax burden all year. Proactive planning, entity structuring, retirement strategy, timing of income and deductions — this is where real money is saved. At D&F, we're in your corner year-round.",cta:"Drop a comment — does your CPA reach out proactively throughout the year?",tip:"Engagement question drives comments and boosts LinkedIn reach."},
-  {day:4,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platform:"FB + LI",title:"The most expensive words in business: 'I didn't know I could do that.'",copy:"S-corp election. Augusta Rule. Solo 401k. Qualified Business Income deduction. These aren't loopholes — they're legal strategies that thousands of business owners miss every single year because their CPA never brought them up. What strategies are you missing?",cta:"Comment MISSED and we'll DM you a free list of the top 10 strategies most business owners overlook.",tip:"Drives DMs and comments — two of the best engagement signals."},
-  {day:5,week:1,wt:"Tax Season Aftermath",theme:"edu",tl:"Education",platform:"FB + LI",title:"5 reasons business owners overpay in taxes every year",copy:"1. Wrong entity structure (sole prop vs S-corp can cost you $10K+)\n2. Missing home office deduction\n3. Not maxing retirement accounts\n4. Skipping the Augusta Rule\n5. No quarterly planning conversations with your CPA\n\nAny of these sound familiar?",cta:"Tag a business owner who needs to see this — you might save them thousands.",tip:"Tags expand reach organically without triggering link suppression."},
-  {day:6,week:1,wt:"Tax Season Aftermath",theme:"trust",tl:"Trust Building",platform:"FB",title:"Meet the team — Dauphin & Fantacone CPAs",copy:"We built D&F on a simple belief: every business deserves the same quality of financial guidance that Fortune 500 companies get — with the personal attention and white-glove service that only a dedicated firm can provide. Big firm expertise. Small firm heart. That's us.",cta:"Follow our page so you never miss a weekly tax tip — we post strategies most CPAs keep to themselves.",tip:"Follow CTA keeps people on platform — algorithm friendly."},
-  {day:7,week:1,wt:"Tax Season Aftermath",theme:"cta",tl:"Direct CTA",platform:"FB + LI",title:"One conversation could save you thousands.",copy:"We're offering free 30-minute tax strategy consultations for business owners who felt like they overpaid this year. No pitch, no pressure. Just a real conversation about what you could be doing differently. Spots are limited this month.",cta:"Comment READY below and we'll DM you to schedule — no forms, no runaround.",tip:"Comment-to-DM flow keeps engagement on platform and converts privately."},
-  {day:8,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platform:"LI",title:"Your accountant prepared your taxes. Did they actually save you money?",copy:"There's a difference between compliance and strategy. Compliance means filing correctly. Strategy means structuring your business, timing your income, and planning your deductions so you legally pay the least amount possible. If your accountant only does the first one, you're leaving money on the table.",cta:"Comment BOTH, COMPLIANCE ONLY, or NOT SURE — curious how many are getting full value.",tip:"Poll-style comment prompt drives high engagement on LinkedIn."},
-  {day:9,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platform:"FB",title:"Imagine getting a tax refund instead of a bill.",copy:"For most business owners, that sounds like a fantasy. But with the right planning in place throughout the year, it's not just possible — it's the goal. Our clients don't get surprised at tax time. They already know what's coming because we planned for it.",cta:"Share this with a business owner friend who dreads tax season every year.",tip:"Share CTA expands organic reach without external links."},
-  {day:10,week:2,wt:"Frustration & Missed Strategies",theme:"edu",tl:"Education",platform:"FB + LI",title:"What is an S-corp election and why should you care?",copy:"If you're a profitable LLC or sole proprietor, switching to S-corp status could save you $5,000–$15,000 in self-employment taxes every year. The math is straightforward — but the execution has to be done right. This is one of the most commonly missed strategies we see.",cta:"Comment S-CORP below and we'll DM you a quick breakdown of whether it makes sense for your situation.",tip:"Topic-specific comment prompt filters serious leads from browsers."},
-  {day:11,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platform:"FB",title:"Real talk: Tax season shouldn't feel like this.",copy:"Dreading the call from your accountant. Scrambling to find receipts. Writing a check you weren't prepared for. If that was your April, let's make sure it's the last one that looks like that. Planning starts now — not next January.",cta:"Drop a comment if this was your April — you're not alone, and it's fixable.",tip:"Vulnerability-style prompt. Reply to all comments personally."},
-  {day:12,week:2,wt:"Frustration & Missed Strategies",theme:"trust",tl:"Trust Building",platform:"LI",title:"Why we serve nonprofits — and why it matters",copy:"Nonprofits don't just need compliance — they need a financial partner who understands the unique pressures of board accountability, grant reporting, and audit readiness. We've worked with nonprofits across Upstate NY, NYC, and Boston who needed a CPA firm that actually understood their world.",cta:"Tag a nonprofit leader or ED who could use a stronger financial partner.",tip:"Tagging prompt targets a specific niche audience on LinkedIn."},
-  {day:13,week:2,wt:"Frustration & Missed Strategies",theme:"edu",tl:"Education",platform:"FB + LI",title:"The Augusta Rule — one of the most overlooked tax strategies for business owners",copy:"Did you know you can rent your personal home to your business for up to 14 days per year — tax-free? That rental income doesn't even go on your personal return. It's called the Augusta Rule and it's 100% legal. Most business owners have never heard of it.",cta:"Comment AUGUSTA below if this is new to you — we'll DM you the details on how to implement it.",tip:"Novelty-based posts get high save rates on LinkedIn — great for reach."},
-  {day:14,week:2,wt:"Frustration & Missed Strategies",theme:"cta",tl:"Direct CTA",platform:"FB + LI",title:"Still thinking about that tax bill?",copy:"If your April tax bill left a bad taste, that feeling is worth acting on. The window to make meaningful changes for 2025 is open right now — but it closes faster than people think. Don't wait until next February to wonder what you could have done differently.",cta:"Comment NOW below and we'll DM you to set up a free 30-min strategy call this week.",tip:"Urgency without a link — comment-to-DM keeps it algorithm safe."},
-  {day:15,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platform:"FB + LI",title:"What does 'proactive tax planning' actually mean?",copy:"It means your CPA reviews your financials quarterly — not annually. It means they flag opportunities before year-end, not after. It means entity structure, retirement contributions, timing of expenses, and deduction strategy are discussed throughout the year. It's the difference between playing offense and defense.",cta:"Comment OFFENSE if you want to start playing offense with your taxes this year.",tip:"Single-word comment prompt is low friction — drives volume."},
-  {day:16,week:3,wt:"Authority & Expertise",theme:"trust",tl:"Trust Building",platform:"LI",title:"Big 4 quality. Personal attention. That's the D&F difference.",copy:"Our team brings decades of experience from top-tier accounting backgrounds — but we made a deliberate choice to build a firm where clients get a dedicated partner, not a rotating door of associates. When you call D&F, you know who you're talking to. And they know your business.",cta:"What matters most to you in a CPA firm? Drop it in the comments — we genuinely want to know.",tip:"Open question drives authentic engagement and surfaces objections."},
-  {day:17,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platform:"FB",title:"Quarterly estimated taxes — are you paying the right amount?",copy:"Underpaying can mean IRS penalties. Overpaying means you're giving the government an interest-free loan. Getting this right requires knowing your projected income, deductions, and credits — something your CPA should be helping you calculate every quarter, not guessing at.",cta:"Comment QUARTERLY if you want a free guide on how to estimate yours accurately — we'll DM it to you.",tip:"Free resource offer via DM is one of the highest-converting comment prompts."},
-  {day:18,week:3,wt:"Authority & Expertise",theme:"pain",tl:"Pain Point",platform:"FB + LI",title:"The cost of a bad CPA isn't just a higher tax bill.",copy:"It's missed deductions. It's wrong entity structure. It's no retirement strategy. It's compliance errors that trigger audits. It's showing up to a conversation with your bank or investors without clean financials. The right CPA pays for themselves many times over.",cta:"Save this post — and share it with a business owner who's never thought about it this way.",tip:"Save prompt is one of LinkedIn's strongest reach signals."},
-  {day:19,week:3,wt:"Authority & Expertise",theme:"trust",tl:"Trust Building",platform:"FB",title:"Serving businesses from Upstate NY to Boston and beyond",copy:"We started in Central New York and have grown to serve clients across Upstate NY, New York City, and Boston. What hasn't changed: every client gets the same personal attention, the same white-glove service, and the same commitment to being a true financial partner — not just a tax preparer.",cta:"Where are you based? Drop your city in the comments — love seeing where our community is growing.",tip:"Location comment prompt builds community and shows geographic reach."},
-  {day:20,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platform:"LI",title:"Why mid-market businesses ($500K–$20M) need a different kind of CPA",copy:"At this revenue level, the stakes are higher. Entity structure matters more. Tax exposure is significant. You may have investors, employees, or acquisition conversations on the horizon. You need a firm that understands the complexity — and can speak to your banker, lawyer, and board in the same language.",cta:"If this is your world, DM us — we'd love to have a conversation about what the right partnership looks like.",tip:"DM prompt targets high-value leads directly without a link."},
-  {day:21,week:3,wt:"Authority & Expertise",theme:"cta",tl:"Direct CTA",platform:"FB + LI",title:"It's not too late to change your 2025 tax outcome.",copy:"Q2 is here. You still have 9 months to make meaningful changes that will show up on your 2025 return. The businesses that pay the least in taxes aren't the ones who hustled at year-end — they're the ones who planned all year long.",cta:"Comment PLAN below and we'll DM you to schedule a free mid-year strategy session.",tip:"Mid-year urgency angle refreshes the post-tax-season hook."},
-  {day:22,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platform:"FB + LI",title:"Should you have a Solo 401k? Probably yes.",copy:"If you're self-employed or a business owner with no full-time employees, a Solo 401k lets you contribute up to $69,000 in 2024 — dramatically reducing your taxable income. Most business owners either don't have one or aren't maxing it. This is one of the biggest missed opportunities we see.",cta:"Comment 401K below if you want us to DM you a breakdown of how this works for your situation.",tip:"Specific dollar figure in copy drives saves and shares."},
-  {day:23,week:4,wt:"Education & Conversion",theme:"trust",tl:"Trust Building",platform:"FB",title:"From tax-time panic to year-round confidence",copy:"One of our clients — a mid-market services business in Upstate NY — came to us after writing a $40K check to the IRS they weren't expecting. Within 12 months we restructured their entity, implemented a retirement strategy, and set up quarterly planning. Their next April looked completely different.",cta:"Drop a comment if you want your story to look different next April — we'll reach out.",tip:"Story-format posts get the highest organic reach on Facebook."},
-  {day:24,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platform:"LI",title:"Nonprofit leaders: Is your firm audit-ready?",copy:"An unexpected audit or board inquiry shouldn't send your team scrambling. Clean financials, proper categorization of restricted vs unrestricted funds, and accurate grant tracking aren't just compliance requirements — they're the foundation of donor and board confidence.",cta:"Comment AUDIT READY or NOT SURE — we'll DM resources to anyone who isn't sure.",tip:"Binary comment choice lowers barrier to engagement."},
-  {day:25,week:4,wt:"Education & Conversion",theme:"pain",tl:"Pain Point",platform:"FB",title:"You work too hard to give more than you owe to the IRS.",copy:"Seriously. You built something. You take the risk. You put in the hours. The tax code has more legal strategies available to business owners than most people realize — and most of them go unused simply because no one brought them up. That changes when you have the right CPA.",cta:"Tag someone who built their own business and deserves to keep more of what they earn.",tip:"Emotional tagging prompt — high share and tag rate on Facebook."},
-  {day:26,week:4,wt:"Education & Conversion",theme:"culture",tl:"Culture",platform:"FB + LI",title:"Why we do what we do",copy:"We started D&F because we believed small and mid-market businesses deserved better. Not cookie-cutter returns filed by someone who barely knows your name. Real partnership. Real strategy. Real results. Every client we take on becomes a long-term relationship — not a transaction.",cta:"Follow us — we share real strategies, real insights, and zero fluff every week.",tip:"Follow CTA keeps people on platform. Great for page growth."},
-  {day:27,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platform:"FB",title:"Year-round tax tip: Separate your accounts now.",copy:"One of the simplest things you can do as a business owner: keep business and personal finances completely separate. Separate bank account, separate credit card, separate everything. This alone makes your accounting cleaner, your deductions easier to track, and an audit far less painful.",cta:"Save this and share it with a new business owner — it's one of the best habits to build early.",tip:"Save + share combo is strong for Facebook reach."},
-  {day:28,week:4,wt:"Education & Conversion",theme:"cta",tl:"Direct CTA",platform:"FB + LI",title:"Your mid-year financial checkup starts now.",copy:"Q2 is a perfect time to review where you stand — income vs projections, tax liability estimate, retirement contributions, and whether your current structure is still serving you. We offer a comprehensive mid-year review for new clients at no charge.",cta:"Comment CHECKUP below and we'll DM you to get something on the calendar.",tip:"Free offer with comment-to-DM is consistently the highest converting format."},
-  {day:29,week:5,wt:"Close & Recap",theme:"trust",tl:"Trust Building",platform:"LI",title:"What our clients say about working with D&F",copy:"The most common thing we hear from new clients: 'I wish I'd found you sooner.' Not because their previous CPA was bad — but because they never realized what a truly proactive, strategic financial partnership felt like until they experienced it.",cta:"What would 'I wish I'd found them sooner' mean for your business? Drop it in the comments.",tip:"Reflective question drives thoughtful LinkedIn comments — great for reach."},
-  {day:30,week:5,wt:"Close & Recap",theme:"cta",tl:"Direct CTA",platform:"FB + LI",title:"30 days of tax tips. One simple ask.",copy:"If anything we've shared this month made you think 'I should look into that' — that's your sign. One conversation with D&F CPAs costs you nothing and could change your financial picture for years. Big firm expertise. Small firm heart. White-glove service from day one.",cta:"Comment READY below — we'll DM you personally to set up your free strategy call. No forms, no wait.",tip:"Close the month strong. Personal DM offer converts better than any link."}
+  {day:1,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platforms:["fb","li"],title:"Tax season is over. Are you relieved — or frustrated?",copy:"If you just wrote a big check to the IRS and you're not sure why, that's not just bad luck. That's a planning problem. Most business owners overpay by thousands every year — not because they did anything wrong, but because no one was looking out for them. That's exactly what we do at D&F CPAs.",cta:"Comment FRUSTRATED below if this resonates — we read every one.",tip:"Post booking link in first comment after publishing."},
+  {day:2,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platforms:["fb"],title:"Hot take: Your tax bill is not fixed.",copy:"Most people treat their tax return like a final score. It's not. It's a report card on last year's planning — and if the number surprised you, there's still time to change the grade for next year. We specialize in helping small & mid-market businesses and nonprofits pay what they owe — and not a dollar more.",cta:"Comment STRATEGY below and we'll reach out this week.",tip:"Respond to every comment to boost reach."},
+  {day:3,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platforms:["li"],title:"If your CPA only calls you in February, you have an accountant — not a partner.",copy:"There's a massive difference between a firm that prepares your return and one that actively works to reduce your tax burden all year. Proactive planning, entity structuring, retirement strategy, timing of income and deductions — this is where real money is saved. At D&F, we're in your corner year-round.",cta:"Drop a comment — does your CPA reach out proactively throughout the year?",tip:"Engagement question drives comments and boosts LinkedIn reach."},
+  {day:4,week:1,wt:"Tax Season Aftermath",theme:"pain",tl:"Pain Point",platforms:["fb","li"],title:"The most expensive words in business: 'I didn't know I could do that.'",copy:"S-corp election. Augusta Rule. Solo 401k. Qualified Business Income deduction. These aren't loopholes — they're legal strategies that thousands of business owners miss every single year because their CPA never brought them up. What strategies are you missing?",cta:"Comment MISSED and we'll DM you a free list of the top 10 strategies most business owners overlook.",tip:"Drives DMs and comments — two of the best engagement signals."},
+  {day:5,week:1,wt:"Tax Season Aftermath",theme:"edu",tl:"Education",platforms:["fb","li"],title:"5 reasons business owners overpay in taxes every year",copy:"1. Wrong entity structure (sole prop vs S-corp can cost you $10K+)\n2. Missing home office deduction\n3. Not maxing retirement accounts\n4. Skipping the Augusta Rule\n5. No quarterly planning conversations with your CPA\n\nAny of these sound familiar?",cta:"Tag a business owner who needs to see this — you might save them thousands.",tip:"Tags expand reach organically without triggering link suppression."},
+  {day:6,week:1,wt:"Tax Season Aftermath",theme:"trust",tl:"Trust Building",platforms:["fb"],title:"Meet the team — Dauphin & Fantacone CPAs",copy:"We built D&F on a simple belief: every business deserves the same quality of financial guidance that Fortune 500 companies get — with the personal attention and white-glove service that only a dedicated firm can provide. Big firm expertise. Small firm heart. That's us.",cta:"Follow our page so you never miss a weekly tax tip — we post strategies most CPAs keep to themselves.",tip:"Follow CTA keeps people on platform — algorithm friendly."},
+  {day:7,week:1,wt:"Tax Season Aftermath",theme:"cta",tl:"Direct CTA",platforms:["fb","li"],title:"One conversation could save you thousands.",copy:"We're offering free 30-minute tax strategy consultations for business owners who felt like they overpaid this year. No pitch, no pressure. Just a real conversation about what you could be doing differently. Spots are limited this month.",cta:"Comment READY below and we'll DM you to schedule — no forms, no runaround.",tip:"Comment-to-DM flow keeps engagement on platform and converts privately."},
+  {day:8,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platforms:["li"],title:"Your accountant prepared your taxes. Did they actually save you money?",copy:"There's a difference between compliance and strategy. Compliance means filing correctly. Strategy means structuring your business, timing your income, and planning your deductions so you legally pay the least amount possible. If your accountant only does the first one, you're leaving money on the table.",cta:"Comment BOTH, COMPLIANCE ONLY, or NOT SURE — curious how many are getting full value.",tip:"Poll-style comment prompt drives high engagement on LinkedIn."},
+  {day:9,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platforms:["fb"],title:"Imagine getting a tax refund instead of a bill.",copy:"For most business owners, that sounds like a fantasy. But with the right planning in place throughout the year, it's not just possible — it's the goal. Our clients don't get surprised at tax time. They already know what's coming because we planned for it.",cta:"Share this with a business owner friend who dreads tax season every year.",tip:"Share CTA expands organic reach without external links."},
+  {day:10,week:2,wt:"Frustration & Missed Strategies",theme:"edu",tl:"Education",platforms:["fb","li"],title:"What is an S-corp election and why should you care?",copy:"If you're a profitable LLC or sole proprietor, switching to S-corp status could save you $5,000–$15,000 in self-employment taxes every year. The math is straightforward — but the execution has to be done right. This is one of the most commonly missed strategies we see.",cta:"Comment S-CORP below and we'll DM you a quick breakdown of whether it makes sense for your situation.",tip:"Topic-specific comment prompt filters serious leads from browsers."},
+  {day:11,week:2,wt:"Frustration & Missed Strategies",theme:"pain",tl:"Pain Point",platforms:["fb"],title:"Real talk: Tax season shouldn't feel like this.",copy:"Dreading the call from your accountant. Scrambling to find receipts. Writing a check you weren't prepared for. If that was your April, let's make sure it's the last one that looks like that. Planning starts now — not next January.",cta:"Drop a comment if this was your April — you're not alone, and it's fixable.",tip:"Vulnerability-style prompt. Reply to all comments personally."},
+  {day:12,week:2,wt:"Frustration & Missed Strategies",theme:"trust",tl:"Trust Building",platforms:["li"],title:"Why we serve nonprofits — and why it matters",copy:"Nonprofits don't just need compliance — they need a financial partner who understands the unique pressures of board accountability, grant reporting, and audit readiness. We've worked with nonprofits across Upstate NY, NYC, and Boston who needed a CPA firm that actually understood their world.",cta:"Tag a nonprofit leader or ED who could use a stronger financial partner.",tip:"Tagging prompt targets a specific niche audience on LinkedIn."},
+  {day:13,week:2,wt:"Frustration & Missed Strategies",theme:"edu",tl:"Education",platforms:["fb","li"],title:"The Augusta Rule — one of the most overlooked tax strategies for business owners",copy:"Did you know you can rent your personal home to your business for up to 14 days per year — tax-free? That rental income doesn't even go on your personal return. It's called the Augusta Rule and it's 100% legal. Most business owners have never heard of it.",cta:"Comment AUGUSTA below if this is new to you — we'll DM you the details on how to implement it.",tip:"Novelty-based posts get high save rates on LinkedIn — great for reach."},
+  {day:14,week:2,wt:"Frustration & Missed Strategies",theme:"cta",tl:"Direct CTA",platforms:["fb","li"],title:"Still thinking about that tax bill?",copy:"If your April tax bill left a bad taste, that feeling is worth acting on. The window to make meaningful changes for 2025 is open right now — but it closes faster than people think. Don't wait until next February to wonder what you could have done differently.",cta:"Comment NOW below and we'll DM you to set up a free 30-min strategy call this week.",tip:"Urgency without a link — comment-to-DM keeps it algorithm safe."},
+  {day:15,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platforms:["fb","li"],title:"What does 'proactive tax planning' actually mean?",copy:"It means your CPA reviews your financials quarterly — not annually. It means they flag opportunities before year-end, not after. It means entity structure, retirement contributions, timing of expenses, and deduction strategy are discussed throughout the year. It's the difference between playing offense and defense.",cta:"Comment OFFENSE if you want to start playing offense with your taxes this year.",tip:"Single-word comment prompt is low friction — drives volume."},
+  {day:16,week:3,wt:"Authority & Expertise",theme:"trust",tl:"Trust Building",platforms:["li"],title:"Big 4 quality. Personal attention. That's the D&F difference.",copy:"Our team brings decades of experience from top-tier accounting backgrounds — but we made a deliberate choice to build a firm where clients get a dedicated partner, not a rotating door of associates. When you call D&F, you know who you're talking to. And they know your business.",cta:"What matters most to you in a CPA firm? Drop it in the comments — we genuinely want to know.",tip:"Open question drives authentic engagement and surfaces objections."},
+  {day:17,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platforms:["fb"],title:"Quarterly estimated taxes — are you paying the right amount?",copy:"Underpaying can mean IRS penalties. Overpaying means you're giving the government an interest-free loan. Getting this right requires knowing your projected income, deductions, and credits — something your CPA should be helping you calculate every quarter, not guessing at.",cta:"Comment QUARTERLY if you want a free guide on how to estimate yours accurately — we'll DM it to you.",tip:"Free resource offer via DM is one of the highest-converting comment prompts."},
+  {day:18,week:3,wt:"Authority & Expertise",theme:"pain",tl:"Pain Point",platforms:["fb","li"],title:"The cost of a bad CPA isn't just a higher tax bill.",copy:"It's missed deductions. It's wrong entity structure. It's no retirement strategy. It's compliance errors that trigger audits. It's showing up to a conversation with your bank or investors without clean financials. The right CPA pays for themselves many times over.",cta:"Save this post — and share it with a business owner who's never thought about it this way.",tip:"Save prompt is one of LinkedIn's strongest reach signals."},
+  {day:19,week:3,wt:"Authority & Expertise",theme:"trust",tl:"Trust Building",platforms:["fb"],title:"Serving businesses from Upstate NY to Boston and beyond",copy:"We started in Central New York and have grown to serve clients across Upstate NY, New York City, and Boston. What hasn't changed: every client gets the same personal attention, the same white-glove service, and the same commitment to being a true financial partner — not just a tax preparer.",cta:"Where are you based? Drop your city in the comments — love seeing where our community is growing.",tip:"Location comment prompt builds community and shows geographic reach."},
+  {day:20,week:3,wt:"Authority & Expertise",theme:"edu",tl:"Education",platforms:["li"],title:"Why mid-market businesses ($500K–$20M) need a different kind of CPA",copy:"At this revenue level, the stakes are higher. Entity structure matters more. Tax exposure is significant. You may have investors, employees, or acquisition conversations on the horizon. You need a firm that understands the complexity — and can speak to your banker, lawyer, and board in the same language.",cta:"If this is your world, DM us — we'd love to have a conversation about what the right partnership looks like.",tip:"DM prompt targets high-value leads directly without a link."},
+  {day:21,week:3,wt:"Authority & Expertise",theme:"cta",tl:"Direct CTA",platforms:["fb","li"],title:"It's not too late to change your 2025 tax outcome.",copy:"Q2 is here. You still have 9 months to make meaningful changes that will show up on your 2025 return. The businesses that pay the least in taxes aren't the ones who hustled at year-end — they're the ones who planned all year long.",cta:"Comment PLAN below and we'll DM you to schedule a free mid-year strategy session.",tip:"Mid-year urgency angle refreshes the post-tax-season hook."},
+  {day:22,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platforms:["fb","li"],title:"Should you have a Solo 401k? Probably yes.",copy:"If you're self-employed or a business owner with no full-time employees, a Solo 401k lets you contribute up to $69,000 in 2024 — dramatically reducing your taxable income. Most business owners either don't have one or aren't maxing it. This is one of the biggest missed opportunities we see.",cta:"Comment 401K below if you want us to DM you a breakdown of how this works for your situation.",tip:"Specific dollar figure in copy drives saves and shares."},
+  {day:23,week:4,wt:"Education & Conversion",theme:"trust",tl:"Trust Building",platforms:["fb"],title:"From tax-time panic to year-round confidence",copy:"One of our clients — a mid-market services business in Upstate NY — came to us after writing a $40K check to the IRS they weren't expecting. Within 12 months we restructured their entity, implemented a retirement strategy, and set up quarterly planning. Their next April looked completely different.",cta:"Drop a comment if you want your story to look different next April — we'll reach out.",tip:"Story-format posts get the highest organic reach on Facebook."},
+  {day:24,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platforms:["li"],title:"Nonprofit leaders: Is your firm audit-ready?",copy:"An unexpected audit or board inquiry shouldn't send your team scrambling. Clean financials, proper categorization of restricted vs unrestricted funds, and accurate grant tracking aren't just compliance requirements — they're the foundation of donor and board confidence.",cta:"Comment AUDIT READY or NOT SURE — we'll DM resources to anyone who isn't sure.",tip:"Binary comment choice lowers barrier to engagement."},
+  {day:25,week:4,wt:"Education & Conversion",theme:"pain",tl:"Pain Point",platforms:["fb"],title:"You work too hard to give more than you owe to the IRS.",copy:"Seriously. You built something. You take the risk. You put in the hours. The tax code has more legal strategies available to business owners than most people realize — and most of them go unused simply because no one brought them up. That changes when you have the right CPA.",cta:"Tag someone who built their own business and deserves to keep more of what they earn.",tip:"Emotional tagging prompt — high share and tag rate on Facebook."},
+  {day:26,week:4,wt:"Education & Conversion",theme:"culture",tl:"Culture",platforms:["fb","li"],title:"Why we do what we do",copy:"We started D&F because we believed small and mid-market businesses deserved better. Not cookie-cutter returns filed by someone who barely knows your name. Real partnership. Real strategy. Real results. Every client we take on becomes a long-term relationship — not a transaction.",cta:"Follow us — we share real strategies, real insights, and zero fluff every week.",tip:"Follow CTA keeps people on platform. Great for page growth."},
+  {day:27,week:4,wt:"Education & Conversion",theme:"edu",tl:"Education",platforms:["fb"],title:"Year-round tax tip: Separate your accounts now.",copy:"One of the simplest things you can do as a business owner: keep business and personal finances completely separate. Separate bank account, separate credit card, separate everything. This alone makes your accounting cleaner, your deductions easier to track, and an audit far less painful.",cta:"Save this and share it with a new business owner — it's one of the best habits to build early.",tip:"Save + share combo is strong for Facebook reach."},
+  {day:28,week:4,wt:"Education & Conversion",theme:"cta",tl:"Direct CTA",platforms:["fb","li"],title:"Your mid-year financial checkup starts now.",copy:"Q2 is a perfect time to review where you stand — income vs projections, tax liability estimate, retirement contributions, and whether your current structure is still serving you. We offer a comprehensive mid-year review for new clients at no charge.",cta:"Comment CHECKUP below and we'll DM you to get something on the calendar.",tip:"Free offer with comment-to-DM is consistently the highest converting format."},
+  {day:29,week:5,wt:"Close & Recap",theme:"trust",tl:"Trust Building",platforms:["li"],title:"What our clients say about working with D&F",copy:"The most common thing we hear from new clients: 'I wish I'd found you sooner.' Not because their previous CPA was bad — but because they never realized what a truly proactive, strategic financial partnership felt like until they experienced it.",cta:"What would 'I wish I'd found them sooner' mean for your business? Drop it in the comments.",tip:"Reflective question drives thoughtful LinkedIn comments — great for reach."},
+  {day:30,week:5,wt:"Close & Recap",theme:"cta",tl:"Direct CTA",platforms:["fb","li"],title:"30 days of tax tips. One simple ask.",copy:"If anything we've shared this month made you think 'I should look into that' — that's your sign. One conversation with D&F CPAs costs you nothing and could change your financial picture for years. Big firm expertise. Small firm heart. White-glove service from day one.",cta:"Comment READY below — we'll DM you personally to set up your free strategy call. No forms, no wait.",tip:"Close the month strong. Personal DM offer converts better than any link."}
 ];
 
 const weekRanges = {1:"Days 1–7",2:"Days 8–14",3:"Days 15–21",4:"Days 22–28",5:"Days 29–30"};
-let activeFilter = 'all';
+let activePlatform = 'all';
+let activeTheme = 'all';
+
+function getFiltered() {
+  return posts.filter(p => {
+    const platformOk = activePlatform === 'all' || p.platforms.includes(activePlatform);
+    const themeOk = activeTheme === 'all' || p.theme === activeTheme;
+    return platformOk && themeOk;
+  });
+}
+
+function updateCounts() {
+  const fbCount = posts.filter(p => p.platforms.includes('fb')).length;
+  const liCount = posts.filter(p => p.platforms.includes('li')).length;
+  document.getElementById('count-all').textContent = `${posts.length} posts`;
+  document.getElementById('count-fb').textContent = `${fbCount} posts`;
+  document.getElementById('count-li').textContent = `${liCount} posts`;
+}
+
+function setPlatform(platform, btn) {
+  activePlatform = platform;
+  document.querySelectorAll('.platform-tab').forEach(b => {
+    b.classList.remove('active-all','active-fb','active-li');
+  });
+  btn.classList.add(`active-${platform}`);
+  document.getElementById('banner-fb').classList.toggle('show', platform === 'fb');
+  document.getElementById('banner-li').classList.toggle('show', platform === 'li');
+  render();
+}
+
+function setTheme(theme, btn) {
+  activeTheme = theme;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function cardClass(platforms) {
+  if (platforms.includes('fb') && platforms.includes('li')) return 'card-both';
+  if (platforms.includes('fb')) return 'card-fb-only';
+  return 'card-li-only';
+}
+
+function platformBadges(platforms) {
+  return platforms.map(p =>
+    p === 'fb'
+      ? '<span class="plat-badge plat-fb">Facebook</span>'
+      : '<span class="plat-badge plat-li">LinkedIn</span>'
+  ).join('');
+}
 
 function render() {
   const main = document.getElementById('main');
   main.innerHTML = '';
-  const visible = activeFilter === 'all' ? posts : posts.filter(p => p.theme === activeFilter);
-  if (!visible.length) { main.innerHTML = '<div class="empty">No posts match this filter.</div>'; return; }
-
+  const visible = getFiltered();
+  if (!visible.length) {
+    main.innerHTML = '<div class="empty">No posts match this filter.</div>';
+    return;
+  }
   let currentWeek = 0;
   let weekEl = null;
-
   visible.forEach(p => {
     if (p.week !== currentWeek) {
       currentWeek = p.week;
@@ -379,9 +363,8 @@ function render() {
       </div>`;
       main.appendChild(weekEl);
     }
-
     const card = document.createElement('div');
-    card.className = 'day-card';
+    card.className = `day-card ${cardClass(p.platforms)}`;
     card.innerHTML = `
       <div class="card-top">
         <div class="day-number">
@@ -391,7 +374,7 @@ function render() {
         <div class="card-meta">
           <div class="card-title">${p.title}</div>
           <span class="badge badge-${p.theme}">${p.tl}</span>
-          <span class="badge badge-platform">${p.platform}</span>
+          <div class="platform-badges">${platformBadges(p.platforms)}</div>
         </div>
       </div>
       <div class="card-body">
@@ -414,15 +397,7 @@ function render() {
   });
 }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    activeFilter = btn.dataset.filter;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    render();
-  });
-});
-
+updateCounts();
 render();
 </script>
 </body>
